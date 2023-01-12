@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projeto_PetShop
 {
-    internal class Cadastro
+    internal class Class1
     {
     }
 }
