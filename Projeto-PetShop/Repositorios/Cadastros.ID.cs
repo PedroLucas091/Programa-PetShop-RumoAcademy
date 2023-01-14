@@ -24,8 +24,6 @@ namespace RepositorioCadastro
             }
                 
         }
-
-
         private idClientes LinhaTextoParaCadastro(string linha)
         {
                var colunas = linha.Split(',');
@@ -38,7 +36,6 @@ namespace RepositorioCadastro
 
                 return  Cliente;
         }
-
         private void CarregarDados()
         {
             IdClients.Clear();
@@ -55,20 +52,21 @@ namespace RepositorioCadastro
             }
             sr.Close();
         }
-
-        public int IdentifacadorCliente()
+        private int IdentifacadorCliente()
         {
             CarregarDados();
             if (IdClients.Count == 0)
                 return 1;
 
-            return IdClients.Max(x=> x.ID);
+            return IdClients.Max(x => x.ID) + 1;
         }
-
-        public void Adicionar()
+        public void Adicionar(idClientes id)
         {
+            var Identificador = IdentifacadorCliente();
 
+            var sw = new StreamWriter(_baseDados);
+            sw.WriteLine($"{Identificador}{id.Nome};{id.CPF};{id.Atividade}");
+            sw.Close();
         }
     }
-        
 }
