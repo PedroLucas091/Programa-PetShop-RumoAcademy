@@ -9,41 +9,44 @@ using System.Threading.Tasks;
 namespace RepositorioCadastro
 
 {
-        internal class CadastroCliente
+    internal class CadastroCliente
     {
         private readonly string _baseDados = "C:\\RumoAcademy\\DataBase.Local\\dados.csv";
         private List<idClientes> IdClients = new List<idClientes>();
-
-
         public CadastroCliente()
         {
             if (!File.Exists(_baseDados))
             {
-               var file = File.Create(_baseDados);
-                   file.Close();
+                var file = File.Create(_baseDados);
+                file.Close();
             }
-                
+        }
+        public List<idClientes> lista()
+        {
+            CarregarDados();
+
+            return IdClients;
         }
         private idClientes LinhaTextoParaCadastro(string linha)
         {
-               var colunas = linha.Split(',');
-             
-               var Cliente = new idClientes();
-                   Cliente.ID = int.Parse(colunas[0]); 
-                   Cliente.Nome = colunas[1];
-                   Cliente.CPF = int.Parse(colunas[2]);
-                   Cliente.Atividade = true;
+            var colunas = linha.Split(',');
 
-                return  Cliente;
+            var Cliente = new idClientes();
+            Cliente.ID = int.Parse(colunas[0]);
+            Cliente.Nome = colunas[1];
+            Cliente.CPF = int.Parse(colunas[2]);
+            Cliente.Atividade = true;
+
+            return Cliente;
         }
         private void CarregarDados()
         {
             IdClients.Clear();
             var sr = new StreamReader(_baseDados);
-          
+
             while (true)
             {
-                 var linha = sr.ReadLine();
+                var linha = sr.ReadLine();
                 if (linha == null)
                     break;
 
@@ -68,5 +71,6 @@ namespace RepositorioCadastro
             sw.WriteLine($"{Identificador}{id.Nome};{id.CPF};{id.Atividade}");
             sw.Close();
         }
+       
     }
 }
